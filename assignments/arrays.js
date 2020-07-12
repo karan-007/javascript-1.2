@@ -9,46 +9,95 @@ const items = [1, 2, 3, 4, 5, 5]; // use this array to test your code.
   You CAN use concat, push, pop, etc. but do not use the exact method that you are replicating
 */
 
+//#1
 function each(elements, cb) {
-  // Do NOT use forEach to complete this function.
-  // Iterates over a list of elements, yielding each in turn to the `cb` function.
-  // This only needs to work with arrays.
-  // You should also pass the index into `cb` as the second argument
-  // based off http://underscorejs.org/#each
+  for(i=0;i<elements.length;i++){
+    cb(elements[i],i);
+  }
 }
 
+each(items,function(n,i){
+  console.log("num=",n," index=",i);
+});
+
+
+//#2
 function map(elements, cb) {
-  // Do NOT use .map, to complete this function.
-  // How map works: Map calls a provided callback function once for each element in an array, in order, and functionructs a new array from the res .
-  // Produces a new array of values by mapping each value in list through a transformation function (iteratee).
-  // Return the new array.
+  arr=[];
+  for(let x of elements){
+    arr.push(cb(x));
+  }
+  return arr;
 }
 
-function reduce(elements, cb, startingValue) {
-  // Do NOT use .reduce to complete this function.
-  // How reduce works: A reduce function combines all elements into a single value going from left to right.
-  // Elements will be passed one by one into `cb` along with the `startingValue`.
-  // `startingValue` should be the first argument passed to `cb` and the array element should be the second argument.
-  // `startingValue` is the starting value.  If `startingValue` is undefined then make `elements[0]` the initial value.
+map(items,function(n){
+  return n*2;
+});
+
+
+//#3
+function reduce(elements, cb) {
+  let sum=0;
+  for(let x of elements){
+    sum=cb(sum,x);
+  }
+  return sum;
 }
 
+reduce(items,function(sum,n){
+  return sum+=n;
+})
+
+
+//#4
 function find(elements, cb) {
-  // Do NOT use .includes, to complete this function.
-  // Look through each value in `elements` and pass each element to `cb`.
-  // If `cb` returns `true` then return that element.
-  // Return `undefined` if no elements pass the truth test.
+  for(let x of elements){
+    if(cb(x)===true){
+      return true
+    }
+  }
+  return "undefined";
 }
 
+find(items,function(n){
+  if(n===2){
+    return true;
+  }
+})
+
+
+//#5
 function filter(elements, cb) {
-  // Do NOT use .filter, to complete this function.
-  // Similar to `find` but you will return an array of all elements that passed the truth test
-  // Return an empty array if no elements pass the truth test
+  let result=[];
+  for(let x of elements){
+    if(cb(x)===true){
+      result.push(x);
+    }
+  }
+  return result;
 }
+
+filter(items,function(n){
+  if(n%3===0){
+    return true;
+  }
+})
 
 const nestedArray = [1, [2], [[3]], [[[4]]]]; // use this to test 'flatten'
 
 function flatten(elements) {
-  // Flattens a nested array (the nesting can be to any depth).
-  // Hint: You can solve this using recursion.
-  // Example: flatten([1, [2], [3, [[4]]]]); => [1, 2, 3, 4];
+  let result=[];
+  function flat(elements){
+    for(let x of elements){
+      if(Array.isArray(x)===false){
+        result.push(x);
+      }else{
+        flat(x)
+      }
+    }
+  }
+  flat(elements);
+  console.log(result)
 }
+
+flatten(arr);
