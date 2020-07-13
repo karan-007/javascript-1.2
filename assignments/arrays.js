@@ -97,7 +97,7 @@ function flatten(elements) {
     }
   }
   flat(elements);
-  console.log(result)
+  return result;
 }
 
 flatten(arr);
