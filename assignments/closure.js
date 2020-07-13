@@ -33,6 +33,7 @@ limitFunctionCallCount(3,cb);
 
 //#3
 function cacheFunction(cb) {
+  function invoke(){
   arr=[1,4,3,4,1,5,5];
   cache={};
   for(let x of arr){
@@ -44,6 +45,8 @@ function cacheFunction(cb) {
       console.log(y,"cb")
     }
   }
+  }
+  return invoke();
 }
 
 cacheFunction(function(n){
