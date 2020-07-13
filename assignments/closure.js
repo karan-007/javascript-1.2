@@ -19,14 +19,16 @@ console.log(counterFactory.decrement());
 
 //#2
 function limitFunctionCallCount(n,cb) {
-  for(i=1;i<=n;i++){
-    cb(i);
+   function invoke () {
+   for(i=1;i<=n;i++){
+     cb();
+   }
   }
+  return invoke()
 }
+function cb () { console.log("Callback invoked") };
+limitFunctionCallCount(3,cb);
 
-limitFunctionCallCount(3,function cb(n){
-  console.log("calling cb",n,"time")
-})
 
 
 //#3
