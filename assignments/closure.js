@@ -43,11 +43,13 @@ function cacheFunction(cb) {
   let cache={};
   function invoke(x){
     if(cache[x]){
-      console.log(cache[x],"cache");
+      console.log("from cache");
+      return cache[x];
     }else{
       let y=cb(x);
       cache[x]=y;
-      console.log(y,"cb")
+      console.log("from cb");
+      return y;
     }
   }
   return {invoke}
@@ -57,8 +59,11 @@ let s= cacheFunction(function(n){
   return n*2;
 })
 
-s.invoke(1);
-s.invoke(2);
-s.invoke(3);
-s.invoke(2);
+console.log(s.invoke(1));
+console.log(s.invoke(2));
+console.log(s.invoke(3));
+console.log(s.invoke(2));
+console.log(s.invoke(3));
+
+
 s.invoke(3);
