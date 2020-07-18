@@ -37,15 +37,15 @@ map(items,function(n){
 
 //#3
 function reduce(elements, cb) {
-  let sum=0;
+  let reduced=0;
   for(let x of elements){
-    sum=cb(sum,x);
+    reduced=cb(reduced,x);
   }
-  return sum;
+  return reduced;
 }
 
-reduce(items,function(sum,n){
-  return sum+=n;
+reduce(items,function(reduced,n){
+  return reduced+=n;
 })
 
 
